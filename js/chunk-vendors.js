@@ -5120,9 +5120,9 @@
 				var Bt = function(t) {
 						return +t.toFixed(1)
 					},
-					Ut = function(e, n, r) {
-						return t.isNumber(e) ? e : e[n] ? t.isNumber(e[n]) ? e[n] : e[n][r] || 1 : e["*"] || 1
-					},
+					Ut = function(e, n, r) {// 返回对应项目权重 e 权重，n 小学，r 几年级
+						return t.isNumber(e) ? e : e[n] ? t.isNumber(e[n]) ? e[n] : e[n][r] ? t.isNumber(e[n][r]) ?e[n][r] : e[n][r] || .1 : e["*"] || .1 : e["*"] || .1
+ 					},
 					Vt = function(e, n) {
 						if(t.isArray(e)) return {
 							performances: n,
@@ -5160,7 +5160,7 @@
 							};
 							if(Ft[r] && Ft[r]["performance"] && Ft[r]["performance"][o] && Ft[r]["performance"][o][i] && (s.scores = Ft[r].score, s.lowerIsBetter = !!Ft[r].lowerIsBetter, s.weight = Ft[r].weight, s.grade = Ft[r].grade, s.bonus = Ft[r].bonus, s.performances = Ft[r]["performance"][o][i][a - 1]), s.performances) {
 								c.rawScore[r] = Bt(e(n, s));
-								var u = Ut(s.weight, i, a);
+								var u = Ut(s.weight, i, a);//参数说明：s.weight 权重，i 小学，a 几年级 返回对应项目权重
 								if(c.score[r] = Bt(c.rawScore[r] * u), c.grade[r] = e(c.rawScore[r], Vt(s.grade, s.scores)), c.bonus[r] = 0, 0 !== n && s.bonus) {
 									var f = s.bonus.limit,
 										l = {
@@ -5177,7 +5177,8 @@
 										}))
 									}
 								}
-								c.total.score = t.sum(t.values(c.score).concat(t.values(c.bonus))), c.total.grade = e(c.total.score, Vt(Ft.total.grade))
+								c.total.score = t.sum(t.values(c.score).concat(t.values(c.bonus))), c.total.grade = e(c.total.score, Vt(Ft.total.grade));
+								//console.log(u);
 							}
 						}), c
 					};
